@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>IBAN Validation</title>
+    <th:block th:replace="fragments/head_fragment">
+    </th:block>
+</head>
+<body>
+<header>
+    <th:block th:replace="fragments/navbar_fragment">
+    </th:block>
+</header>
+<main style="text-align: center">
+    <div class="container-fluid">
+        <h1>This is the IBAN validation page!</h1>
+
+        <form style="margin: 30px 300px 30px 300px" th:action="@{/iban-validation}" th:method="post">
+            <div class="form-group">
+                <label for="iban">Enter your IBAN:</label>
+                <input th:type="text" class="form-control" id="iban" name="iban_code">
+            </div>
+            <th:block th:if="${validation_result.getValid() != null}">
+                <p class="text-black-50" th:text="|Last entered IBAN : ${validation_result.getCode()}|"></p>
+                <th:block th:if="${validation_result.getValid()}">
+                    <p class="text-success" th:text="${validation_result.VALID_IBAN_MESSAGE}"></p>
+                </th:block>
+
+                <th:block th:if="${!validation_result.getValid()}">
+                    <p class="text-danger" th:text="${validation_result.INVALID_IBAN_MESSAGE}"></p>
+                </th:block>
+            </th:block>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</main>
+</body>
+</html>

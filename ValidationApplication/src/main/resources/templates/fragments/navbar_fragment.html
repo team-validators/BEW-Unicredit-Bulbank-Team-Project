@@ -1,0 +1,20 @@
+<th:block th:fragment="navbarFragment" xmlns:th="http://www.w3.org/1999/xhtml">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" th:href="@{/}">Validators</a>
+
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/personal-id-validation}">Validate personal id</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/iban-validation}">Validate IBAN</a>
+            </li>
+        </ul>
+    </nav>
+
+</th:block>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <th:block th:replace="fragments/head_fragment">
+    </th:block>
+</head>
+<body>
+<header>
+    <th:block th:replace="fragments/navbar_fragment">
+    </th:block>
+</header>
+<main style="text-align: center">
+    <h1>Welcome! This is the home page!</h1>
+    <img src="/images/lightbulb.jpg" width="300" class="rounded-circle" alt="Lightbulb img">
+
+</main>
+
+</body>
+</html>
