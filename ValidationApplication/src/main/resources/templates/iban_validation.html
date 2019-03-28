@@ -20,14 +20,16 @@
                 <label for="iban">Enter your IBAN:</label>
                 <input th:type="text" class="form-control" id="iban" name="iban_code">
             </div>
-            <th:block th:if="${validation_result.getValid() != null}">
-                <p class="text-black-50" th:text="|Last entered IBAN : ${validation_result.getCode()}|"></p>
-                <th:block th:if="${validation_result.getValid()}">
-                    <p class="text-success" th:text="${validation_result.VALID_IBAN_MESSAGE}"></p>
+            <th:block th:if="${iban_object.getCode() != null}">
+                <p class="text-black-50" th:text="|Last entered IBAN : ${iban_object.getCode()}|"></p>
+                <th:block th:if="${iban_object.getErrors().isEmpty()}">
+                    <p class="text-success" th:text="${iban_object.VALID_IBAN_MESSAGE}"></p>
                 </th:block>
 
-                <th:block th:if="${!validation_result.getValid()}">
-                    <p class="text-danger" th:text="${validation_result.INVALID_IBAN_MESSAGE}"></p>
+                <th:block th:if="${!iban_object.getErrors().isEmpty()}">
+                    <th:block th:each="error: ${iban_object.getErrors()}">
+                    <p class="text-danger" th:text="${error}"></p>
+                    </th:block>
                 </th:block>
             </th:block>
 

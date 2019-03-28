@@ -2,6 +2,7 @@ package org.unicredit.validationapp.service;
 
 import org.springframework.stereotype.Service;
 import org.unicredit.validationapp.domain.enums.Gender;
+import org.unicredit.validationapp.domain.view_models.IbanInformation;
 import org.unicredit.validationapp.domain.view_models.PersonalIdInformation;
 
 import java.math.BigInteger;
@@ -41,19 +42,28 @@ public class ValidationServiceImpl implements ValidationService {
     public static final String INVALID_DATE_OF_BIRTH = "Extracted birth date from personal ID is not valid!";
 
     @Override
-    public Boolean ibanIsValid(String ibanCode) {
-        ibanCode = this.reformatIban(ibanCode);
+    public IbanInformation ibanIsValid(String ibanCode) {
+        IbanInformation ibanInformation = new IbanInformation();
+        ibanInformation.setCode(ibanCode);
 
-        if (!this.isValidNationality(ibanCode))
-            return false;
+        String reformatedIbanCode = this.reformatIban(ibanCode);
 
-        if (!this.isValidIbanFormat(ibanCode))
-            return false;
+        if (!this.isValidIbanFormat(reformatedIbanCode)) {
+            ibanInformation.addError("Invalid format!");
+            return ibanInformation;
+        }
 
-        if (!this.isValidIbanControlNumber(ibanCode))
-            return false;
+        if (!this.isValidNationality(reformatedIbanCode)) {
+            ibanInformation.addError("Invalid nationality!");
+            return ibanInformation;
+        }
 
-        return true;
+        if (!this.isValidIbanControlNumber(reformatedIbanCode)) {
+            ibanInformation.addError("Invalid control number!");
+            return ibanInformation;
+        }
+
+        return ibanInformation;
     }
 
     @Override
