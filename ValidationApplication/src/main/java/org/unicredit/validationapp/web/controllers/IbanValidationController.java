@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.unicredit.validationapp.domain.Iban;
+import org.unicredit.validationapp.domain.view_models.Iban;
 import org.unicredit.validationapp.service.ValidationService;
 
 @Controller
@@ -20,7 +20,7 @@ public class IbanValidationController {
 
     @GetMapping
     public ModelAndView getIbanValidationPage(ModelAndView modelAndView,
-                                              @ModelAttribute("validationResult") Iban iban) { //TODO can't transport booleans
+                                              @ModelAttribute("validationResult") Iban iban) {
         modelAndView.setViewName("iban_validation");
         modelAndView.addObject("validation_result", iban);
         return modelAndView;

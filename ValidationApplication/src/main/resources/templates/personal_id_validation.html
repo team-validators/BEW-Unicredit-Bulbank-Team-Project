@@ -20,13 +20,27 @@
                 <label for="iban">Enter your personal ID:</label>
                 <input th:type="text" class="form-control" id="iban" name="personal_id_number">
             </div>
-            <th:block th:if="${validation_result.getValid() != null}">
-                <th:block th:if="${validation_result.getValid()}">
-                    <p class="text-success" th:text="${validation_result.VALID_PERSONAL_ID_MESSAGE}"></p>
+            <th:block th:if="${personal_id_information.getCode() != null}">
+                <th:block th:if="${personal_id_information.getErrors().isEmpty()}">
+                    <p class="text-success" th:text="${personal_id_information.VALID_PERSONAL_ID_MESSAGE}"></p>
+
+                    <p class="text-black-50">Personal information details: </p>
+                    <ul>
+                        <li th:text="|Personal id: ${personal_id_information.getCode()}|"></li>
+                        <li th:text="|City: ${personal_id_information.getCity()}|"></li>
+                        <li th:text="|Date of birth: ${#dates.format(personal_id_information.getDateOfBirth(), 'dd/MM/yyyy')}|"></li>
+                        <li th:text="|Boys born before: ${personal_id_information.getNumberOfBoysBornBefore()}|"></li>
+                        <li th:text="|Girls born before: ${personal_id_information.getNumberOfGirlsBornBefore()}|"></li>
+                    </ul>
                 </th:block>
 
-                <th:block th:if="${!validation_result.getValid()}">
-                    <p class="text-danger" th:text="${validation_result.INVALID_PERSONAL_ID_MESSAGE}"></p>
+                <th:block th:if="${!personal_id_information.getErrors().isEmpty()}">
+                    <p th:text="|Last entered code: ${personal_id_information.getCode()}|"></p>
+                    <ul>
+                        <th:block th:each="error: ${personal_id_information.getErrors()}">
+                            <li th:text="${error}" class="text-danger"></li>
+                        </th:block>
+                    </ul>
                 </th:block>
             </th:block>
 

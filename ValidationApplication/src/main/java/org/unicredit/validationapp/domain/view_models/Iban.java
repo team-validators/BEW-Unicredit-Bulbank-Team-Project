@@ -1,4 +1,4 @@
-package org.unicredit.validationapp.domain;
+package org.unicredit.validationapp.domain.view_models;
 
 public class Iban {
     public static final String VALID_IBAN_MESSAGE = "IBAN code is valid!";

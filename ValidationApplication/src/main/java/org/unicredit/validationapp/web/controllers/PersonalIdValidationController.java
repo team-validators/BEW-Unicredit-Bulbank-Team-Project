@@ -5,8 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.unicredit.validationapp.domain.Iban;
-import org.unicredit.validationapp.domain.PersonalId;
+import org.unicredit.validationapp.domain.view_models.PersonalIdInformation;
 import org.unicredit.validationapp.service.ValidationService;
 
 @Controller
@@ -21,21 +20,19 @@ public class PersonalIdValidationController {
 
     @GetMapping
     public ModelAndView getPersonalIdValidationPage(ModelAndView modelAndView,
-                                              @ModelAttribute("validationResult") PersonalId personalId) { //TODO can't transport booleans
+                                                    @ModelAttribute("personalIdInformation") PersonalIdInformation personalId) {
         modelAndView.setViewName("personal_id_validation");
-        modelAndView.addObject("validation_result", personalId);
+        modelAndView.addObject("personal_id_information", personalId);
         return modelAndView;
     }
 
     @PostMapping
     public String postPersonalIdValidationPage(@RequestParam(name = "personal_id_number") String personalIdCode,
-                                         RedirectAttributes redirectAttributes,
-                                         PersonalId personalId) {
-        Boolean isValidPersonalId = this.validationService.personalIdIsValid(personalIdCode); //TODO
-        personalId.setCode(personalIdCode);
-        personalId.setValid(isValidPersonalId);
+                                               RedirectAttributes redirectAttributes,
+                                               PersonalIdInformation personalId) {
+        PersonalIdInformation personalIdInformation = this.validationService.personalIdIsValid(personalIdCode);
 
-        redirectAttributes.addFlashAttribute("validationResult", personalId);
+        redirectAttributes.addFlashAttribute("personalIdInformation", personalIdInformation);
         return "redirect:/personal-id-validation";
     }
 }

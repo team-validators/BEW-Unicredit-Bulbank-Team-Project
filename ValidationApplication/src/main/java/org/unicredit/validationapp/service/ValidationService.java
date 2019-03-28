@@ -1,7 +1,9 @@
 package org.unicredit.validationapp.service;
 
+import org.unicredit.validationapp.domain.view_models.PersonalIdInformation;
+
 public interface ValidationService {
     Boolean ibanIsValid(String ibanCode);
 
-    Boolean personalIdIsValid(String personalId);
+    PersonalIdInformation personalIdIsValid(String personalId);
 }
